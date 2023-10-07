@@ -1,0 +1,18 @@
+import 'dotenv/config'
+
+export default {
+    PORT:1337,
+    MONGODB_URI:process.env.MONGODB_URI,
+    SALT_WORK_FACTOR:10,
+    PUBLIC_KEY:`-----BEGIN RSA PUBLIC KEY-----
+    MIIBCgKCAQEA1fwkJI3ZGmV1IyVuv5cLqhsVYxOhx3XiXoKHlbDqjqhXId63giLv
+    FSxZKoHQRQVLOXICN5xfW2STbd3MIjF1YhDJFxfHP892HQYikGUKwFpXNWFnwR8U
+    ZWvhy5OWVRdH5bdqtwhMxolwsPg4/0K7loyuIbecaPYdrzCYxahM1ejLRTHaLhLP
+    PMdUaxtQyjLC+CVYvi1GAXO7g3CS0zIMgnwnRJU7jroOw/wWYHdIE9yuGENdu6yW
+    AcZV8dItvGtOPsHO5aTay7lEmNaR4/cKEFJbJL5wyeQXQBX6C283diaL+EUU9YUV
+    H435Q4J5FVvF+7oYkzo/qHaYbRG2fCg1swIDAQAB
+    -----END RSA PUBLIC KEY-----`,
+    PRIVATE_KEY:process.env.PRIVATE_KEY,
+    JWT_ACCESS_TOKEN_TTL: '15m',
+    JWT_REFRESH_TOKEN_TTL: '1y',
+}
