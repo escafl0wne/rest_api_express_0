@@ -7,6 +7,10 @@ import routes  from './utils/routes';
 import sessionRoutes from './resources/session/session.routes';
 import {getUser} from "./middleware/getUser" 
 import productRoutes from './resources/product/product.routes';
+import NodeCache from "node-cache";
+
+
+
 const app = express();
 
 app.use(express.json());
@@ -14,9 +18,11 @@ app.use(getUser)
 
 
 const PORT = config.get<number>('PORT');
+export const myCache = new NodeCache({ stdTTL: 600 });
 app.listen(PORT, async() => {
     await connectDB();
-    
+
+
     logger.info(`Server is running on :: http://localhost:${PORT}`)
     
     routes(app)

@@ -1,12 +1,14 @@
 import { CreateProductInput, DeleteProductInput, GetProductInput, UpdateProductInput } from "./product.schema"
 import { productService } from "./product.service"
 import { Request, Response } from "express"
-
-
+import { myCache } from "../../app"
+import { casheService } from "../cache/cache.service"
 export const productController = {
     async findProducts(req: Request, res: Response){
         try {
             const products = await productService.findProducts()
+            casheService.set(req,products,myCache)
+           
             return res.send(products)
         } catch (error:any) {
             return res.status(400).send(error)
@@ -20,7 +22,7 @@ export const productController = {
             
             const product = await productService.findProduct({_id})
             if(!product) throw new Error("Product not found")
-           
+            casheService.set(req,product,myCache)
             return res.send(product)
         } catch (error:any) {
             return res.status(404).send(error.message)

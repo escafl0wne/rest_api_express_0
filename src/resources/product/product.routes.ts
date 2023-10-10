@@ -2,9 +2,10 @@ import { Express } from "express";
 import validateBody from "../../middleware/validateResource";
 import { productDto } from "./product.schema";
 import { productController } from "./product.controller";
-import { requireUser } from "../../middleware/requireUser";
+import { requireUser,caching } from "../../middleware";
+
 export default function productRoutes(app: Express, path: string) {
-  app.get(path, productController.findProducts);
+  app.get(path,caching(), productController.findProducts);
   app.post(
     path,
     [requireUser, validateBody(productDto.create)],
@@ -12,7 +13,7 @@ export default function productRoutes(app: Express, path: string) {
   );
   app.get(
     path+"/:productId",
-    validateBody(productDto.find),
+    [validateBody(productDto.find),caching()],
     productController.findProductById
   );
   app.delete(
